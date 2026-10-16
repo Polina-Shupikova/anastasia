@@ -1,648 +1,432 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Овечки и цветочки 🐑🌸</title>
+<title>Ценности в советском кинематографе</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+:root{--paper:#ded8c9;--light:#e9e3d5;--ink:#11110f;--orange:#ff663f;--orange2:#e64b28;--teal:#389b91;--line:#bdb5a5;--muted:#59554d}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif}
+button,input{font:inherit}
+button,a{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1240px,calc(100% - 48px));margin:auto}
+.topbar{height:8px;background:var(--orange)}
+.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid #1112}
+.brand{display:flex;align-items:center;gap:12px;font:12px 'Courier New',monospace;letter-spacing:.06em;text-transform:uppercase}
+.brand-mark{display:grid;place-items:center;width:38px;height:38px;background:var(--orange);font:bold 20px Georgia}
+.links{display:flex;gap:24px;font:12px 'Courier New',monospace;text-transform:uppercase}
+.links a:hover{color:var(--orange2)}
+.btn,.filter,.save{border:1px solid var(--ink);background:transparent;padding:12px 15px;font:11px 'Courier New',monospace;text-transform:uppercase;letter-spacing:.04em}
+.btn.orange{background:var(--orange);border-color:var(--orange)}
+.btn:hover,.filter.active,.filter:hover{background:var(--orange);border-color:var(--orange)}
 
-  html, body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #8fd6ff;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    -webkit-tap-highlight-color: transparent;
-  }
+.hero{padding:35px 0 48px}
+.hero-panel{background:var(--orange);border-radius:12px;min-height:440px;padding:55px clamp(24px,6vw,80px);display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center;position:relative;overflow:hidden}
+.hero-panel:before{content:'';position:absolute;left:0;top:15%;height:70%;width:18px;background:var(--paper);border-radius:0 15px 15px 0;box-shadow:0 115px 0 var(--paper),0 -115px 0 var(--paper)}
+.eyebrow,.kicker{font:11px 'Courier New',monospace;letter-spacing:.15em;text-transform:uppercase}
+.hero h1{font-size:clamp(48px,7.5vw,100px);line-height:.84;letter-spacing:-.07em;margin:24px 0;text-transform:uppercase}
+.hero h1 span{display:block}
+.hero-copy{font:14px/1.8 'Courier New',monospace;max-width:590px}
+.actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}
+.hero-art{min-height:300px;position:relative;display:grid;place-items:center}
+.ring{position:absolute;width:250px;height:250px;border:1px solid var(--ink);border-radius:50%;box-shadow:0 0 0 10px transparent,0 0 0 11px var(--ink),0 0 0 20px transparent,0 0 0 21px var(--ink);opacity:.65}
+.hero-poster{position:relative;width:205px;height:285px;background:#262722;padding:10px;transform:rotate(4deg);border-radius:7px;box-shadow:12px 12px 0 var(--teal);overflow:hidden}
+.hero-poster img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);opacity:.85}
+.hero-poster b{position:absolute;left:20px;right:15px;bottom:20px;color:white;font-size:25px;line-height:1;text-transform:uppercase;text-shadow:0 2px 12px #000}
+.sticker{position:absolute;bottom:3px;right:5%;background:var(--paper);border:1px solid;padding:10px 12px;font:10px 'Courier New',monospace;text-transform:uppercase;transform:rotate(-6deg)}
+.ticker{padding:14px 0;border-block:1px solid;font:11px 'Courier New',monospace;letter-spacing:.13em;text-transform:uppercase;white-space:nowrap;overflow:hidden}
+.ticker b{color:var(--orange2);margin:0 18px}
 
-  canvas {
-    display: block;
-    position: absolute;
-    inset: 0;
-    cursor: crosshair;
-  }
+section{padding:72px 0}
+.head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:32px}
+.kicker{color:var(--orange2)}
+h2{font-size:clamp(34px,5vw,60px);line-height:.98;letter-spacing:-.05em;font-weight:normal;margin:12px 0 0}
+.intro{max-width:420px;font:13px/1.8 'Courier New',monospace;color:var(--muted);margin:0}
+.capsule{position:relative;display:inline-block;padding:17px 32px}
+.capsule:before,.capsule:after{content:'';position:absolute;inset:0;border:1px solid var(--orange);border-radius:100px;transform:rotate(-.4deg);pointer-events:none}
+.capsule:after{inset:5px -4px;border-color:var(--teal);transform:rotate(.4deg)}
 
-  .panel {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 16px;
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    border-radius: 20px;
-    box-shadow: 0 8px 28px rgba(40, 80, 40, 0.18);
-    user-select: none;
-    z-index: 10;
-  }
+.feature-grid{display:grid;grid-template-columns:1fr .92fr .92fr;grid-template-rows:250px 230px;gap:17px}
+.feature{position:relative;overflow:hidden;border-radius:17px;background:#393a35;cursor:pointer;min-width:0}
+.feature:first-child{grid-row:span 2}
+.feature:nth-child(4){grid-column:2/4}
+.feature img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1);transition:.4s}
+.feature:hover img{filter:grayscale(.2);transform:scale(1.04)}
+.feature:after{content:'';position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#000b);pointer-events:none}
+.feature .number{position:absolute;right:14px;top:14px;z-index:2;background:var(--paper);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:11px 'Courier New',monospace}
+.feature .label{position:absolute;z-index:2;left:20px;right:18px;bottom:20px;color:white}
+.label small{font:10px 'Courier New',monospace;letter-spacing:.12em;text-transform:uppercase}
+.label h3{font-size:clamp(22px,2.5vw,34px);line-height:1;font-weight:normal;margin:9px 0}
+.label p{font:11px/1.5 'Courier New',monospace;margin:0;color:#eee}
+.fallback{display:grid;place-items:center;height:100%;width:100%;font-size:74px;color:var(--paper);background:linear-gradient(135deg,var(--poster,#4c6258),#171814)}
 
-  .panel button {
-    font: inherit;
-    font-weight: 600;
-    font-size: 15px;
-    color: #2f4a2a;
-    padding: 9px 16px;
-    background: #ffffff;
-    border: 2px solid #b9e3a2;
-    border-radius: 14px;
-    cursor: pointer;
-    transition: transform .12s ease, background .18s ease, box-shadow .18s ease;
-    box-shadow: 0 3px 0 #b9e3a2;
-  }
+.values{background:var(--ink);color:var(--paper)}
+.values .intro{color:#d2ccbf}
+.values .kicker{color:var(--orange)}
+.value-grid{display:grid;grid-template-columns:repeat(4,1fr);margin-top:40px;border-top:1px solid #ffffff44}
+.value{padding:25px 18px 10px 0;margin-right:18px;border-bottom:1px solid #ffffff44}
+.value span{font:11px 'Courier New',monospace;color:var(--orange)}
+.value h3{font-size:23px;font-weight:normal;margin:17px 0 12px}
+.value p{font:12px/1.8 'Courier New',monospace;color:#d2ccbf;margin:0}
 
-  .panel button:hover {
-    background: #f1ffe8;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 0 #b9e3a2;
-  }
+.catalog{background:var(--light)}
+.tools{display:flex;gap:9px;flex-wrap:wrap;margin:26px 0}
+.search{flex:1;min-width:220px;background:transparent;border:1px solid var(--line);padding:13px 15px;font:13px 'Courier New',monospace;outline:none}
+.search:focus{border-color:var(--orange2)}
+.filter{border-color:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.movie{min-width:0;cursor:pointer}
+.movie-pic{height:215px;position:relative;overflow:hidden;border-radius:17px;background:var(--poster)}
+.movie-pic img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1);transition:.35s}
+.movie:hover .movie-pic img{filter:grayscale(.15);transform:scale(1.04)}
+.movie-pic:after{content:'';position:absolute;inset:0;border:1px solid #fff8;border-radius:17px;pointer-events:none}
+.year{position:absolute;top:11px;left:11px;z-index:2;background:var(--paper);padding:7px 9px;font:10px 'Courier New',monospace}
+.movie-info{padding:14px 3px 6px}
+.genre{font:10px 'Courier New',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--orange2)}
+.movie h3{font-size:24px;line-height:1.02;font-weight:normal;margin:8px 0}
+.movie p{font:12px/1.7 'Courier New',monospace;color:var(--muted);margin:0}
+.card-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:13px;border-top:1px solid var(--line);padding-top:9px;font:10px 'Courier New',monospace;text-transform:uppercase}
+.card-bottom b{font:20px Georgia;color:var(--orange2)}
+.empty{grid-column:1/-1;padding:40px;border:1px dashed var(--line);text-align:center;font:13px 'Courier New',monospace}
 
-  .panel button:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 0 #b9e3a2;
-  }
+.quote{padding:75px 0;text-align:center}
+.quote p{font-size:clamp(26px,4.2vw,50px);line-height:1.12;max-width:900px;margin:auto}
+.quote small{display:block;margin-top:22px;font:10px 'Courier New',monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+footer{background:var(--orange);padding:28px 0}
+.footer-row{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.footer-title{font-size:20px}
+.footnote{font:11px/1.7 'Courier New',monospace;max-width:620px;margin-top:7px}
+.backtop{font:11px 'Courier New',monospace;text-transform:uppercase;border-bottom:1px solid;padding-bottom:4px}
 
-  .count {
-    font-size: 14px;
-    font-weight: 600;
-    color: #3d5c35;
-    padding-left: 4px;
-  }
+.modal{display:none;position:fixed;inset:0;z-index:50;background:#111d;backdrop-filter:blur(5px);padding:20px;align-items:center;justify-content:center}
+.modal.open{display:flex}
+.modal-panel{position:relative;background:var(--paper);width:min(1000px,100%);max-height:92vh;overflow:auto}
+.close{position:absolute;z-index:3;top:12px;right:12px;width:40px;height:40px;background:var(--orange);border:0;font-size:24px}
+.modal-top{display:grid;grid-template-columns:.8fr 1.2fr;min-height:320px}
+.modal-img{min-height:320px;background:#333;position:relative}
+.modal-img img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;filter:grayscale(1)}
+.modal-text{padding:42px}
+.modal-text h2{font-size:clamp(32px,5vw,55px)}
+.meta{font:11px/1.8 'Courier New',monospace;color:var(--muted);margin:14px 0}
+.modal-copy{padding:8px 42px 40px;display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.modal-copy h3{font-size:22px;font-weight:normal;margin:10px 0}
+.modal-copy p{font:13px/1.8 'Courier New',monospace;color:#4f4b43;margin:0}
+.modal-copy .full{grid-column:1/-1}
+.save.saved{background:var(--teal);border-color:var(--teal)}
 
-  .count b { color: #1f7a2e; }
-
-  .hint {
-    position: absolute;
-    bottom: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 9px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #35522d;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 999px;
-    border: 2px solid rgba(255, 255, 255, 0.85);
-    white-space: nowrap;
-    pointer-events: none;
-    z-index: 10;
-  }
-
-  @media (max-width: 620px) {
-    .panel { top: 10px; left: 10px; right: 10px; padding: 10px; gap: 8px; border-radius: 16px; }
-    .panel button { font-size: 13px; padding: 7px 11px; }
-    .count { font-size: 12px; }
-    .hint { font-size: 12px; padding: 7px 14px; white-space: normal; text-align: center; width: 90%; }
-  }
+@media(max-width:900px){
+  .hero-panel{grid-template-columns:1fr .7fr;padding:40px 32px}
+  .feature-grid{grid-template-rows:210px 210px}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .value-grid{grid-template-columns:repeat(2,1fr)}
+  .links{gap:12px}
+  .label p{display:none}
+}
+@media(max-width:620px){
+  .wrap{width:calc(100% - 28px)}
+  .nav{height:68px}
+  .links{display:none}
+  .brand{font-size:10px}
+  .hero{padding:18px 0 32px}
+  .hero-panel{grid-template-columns:1fr;padding:38px 22px 25px;gap:0}
+  .hero h1{font-size:clamp(45px,14vw,72px)}
+  .hero-copy{font-size:12px}
+  .hero-art{min-height:245px}
+  .hero-poster{width:160px;height:220px}
+  .ring{width:195px;height:195px}
+  .sticker{right:9%}
+  section{padding:54px 0}
+  .head{display:block}
+  .intro{margin-top:18px}
+  .capsule{padding:15px 23px}
+  .feature-grid{grid-template-columns:1fr 1fr;grid-template-rows:220px 170px 170px;gap:10px}
+  .feature:first-child{grid-column:1/-1;grid-row:auto}
+  .feature:nth-child(4){grid-column:1/-1}
+  .feature .label{left:13px;right:10px;bottom:12px}
+  .label h3{font-size:20px}
+  .label p{display:none}
+  .grid{grid-template-columns:1fr 1fr;gap:17px 10px}
+  .movie-pic{height:155px}
+  .movie h3{font-size:19px}
+  .movie p{font-size:10px}
+  .value{margin-right:10px;padding-right:8px}
+  .value h3{font-size:19px}
+  .filter{padding:10px}
+  .search{min-width:100%}
+  .modal{padding:8px}
+  .modal-top{grid-template-columns:1fr}
+  .modal-img{height:190px;min-height:190px}
+  .modal-text{padding:24px 20px 18px}
+  .modal-copy{grid-template-columns:1fr;padding:8px 20px 28px;gap:17px}
+  .modal-copy .full{grid-column:auto}
+  .close{top:6px;right:6px}
+  .footer-row{align-items:flex-start;flex-direction:column}
+}
 </style>
 </head>
 <body>
+<div class="topbar"></div>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><span class="brand-mark">К</span><span>Кино / ценности / память</span></a>
+    <nav class="links">
+      <a href="#recommend">Рекомендации</a>
+      <a href="#values">Ценности</a>
+      <a href="#catalog">Каталог</a>
+    </nav>
+    <button class="btn" id="savedToggle" onclick="toggleSavedView()">♡ Избранное <span id="savedCount">0</span></button>
+  </div>
+</header>
 
-<canvas id="scene"></canvas>
+<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-panel">
+      <div>
+        <div class="eyebrow">Киноклуб · путеводитель № 01</div>
+        <h1><span>Ценности</span><span>в советском</span><span>кино.</span></h1>
+        <p class="hero-copy">Фильмы, через которые мы изучаем время, характеры и идеи. От дружбы и любви до служения истине — открываем классику не как список старых картин, а как разговор о том, что важно и сегодня.</p>
+        <div class="actions">
+          <a class="btn orange" href="#recommend">Начать путешествие ↘</a>
+          <a class="btn" href="#catalog">Открыть каталог</a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="ring"></div>
+        <div class="hero-poster">
+          <img src="https://runews24.ru/assets/images/uploads/2025/12/16/fd988d59654921ee52a264550b238066.jpeg" alt="Кадр из фильма Ирония судьбы">
+          <b>Истории,<br>которые<br>остались</b>
+        </div>
+        <div class="sticker">Золотая коллекция</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="panel">
-  <button id="addSheep">🐑 Ещё овечку</button>
-  <button id="addFlower">🌸 Ещё цветочек</button>
-  <span class="count">Овечек: <b id="sheepCount">0</b> · Цветочков: <b id="flowerCount">0</b></span>
+<div class="ticker">Большое кино <b>✳</b> Большие идеи <b>✳</b> Истории о людях <b>✳</b> Советский кинематограф <b>✳</b> Большое кино <b>✳</b></div>
+
+<section id="recommend">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker">01 / Выбор редакции</div><h2 class="capsule">С чего начать</h2></div>
+      <p class="intro">Четыре фильма и четыре разных взгляда на жизнь. В каждом — собственный визуальный мир и идея, которую хочется обсудить после просмотра.</p>
+    </div>
+    <div class="feature-grid" id="featureGrid"></div>
+  </div>
+</section>
+
+<section class="values" id="values">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker">02 / Главные темы</div><h2>Что объединяет эти истории?</h2></div>
+      <p class="intro">Мы смотрим не только на сюжет, но и на вопросы, которые фильм оставляет зрителю.</p>
+    </div>
+    <div class="value-grid">
+      <article class="value"><span>01 — ЧЕЛОВЕК</span><h3>Дружба и солидарность</h3><p>Поддержка, товарищество и готовность быть рядом, когда другому трудно.</p></article>
+      <article class="value"><span>02 — ЧУВСТВО</span><h3>Любовь и семья</h3><p>Неидеальные отношения, забота и умение увидеть за привычной ролью живого человека.</p></article>
+      <article class="value"><span>03 — ХАРАКТЕР</span><h3>Честность и труд</h3><p>Ответственность за решения, уважение к своему делу и стремление поступать по совести.</p></article>
+      <article class="value"><span>04 — СМЫСЛ</span><h3>Служение истине</h3><p>Поиск ответов, любознательность и готовность идти к цели, даже если это непросто.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="catalog" id="catalog">
+  <div class="wrap">
+    <div class="head">
+      <div><div class="kicker">03 / Фильмотека</div><h2 class="capsule">Найди свой фильм</h2></div>
+      <p class="intro">Ищи по названию, режиссёру или теме. Нажми на карточку, чтобы открыть обзор, ключевые ценности и повод посмотреть фильм сегодня.</p>
+    </div>
+    <div class="tools">
+      <input id="searchInput" class="search" type="search" placeholder="Поиск: название, режиссёр, ценность…" aria-label="Поиск фильмов">
+      <button class="filter active" data-filter="Все">Все</button>
+      <button class="filter" data-filter="Комедия">Комедии</button>
+      <button class="filter" data-filter="Драма">Драмы</button>
+      <button class="filter" data-filter="Приключения">Приключения</button>
+      <button class="filter" data-filter="Фантастика">Фантастика</button>
+    </div>
+    <div class="grid" id="catalogGrid"></div>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="wrap">
+    <p>«Кино сохраняет не только эпоху — оно сохраняет вопросы, которые люди задают себе снова и снова».</p>
+    <small>Заметка киноклуба / Смотрите внимательнее</small>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <div><div class="footer-title">Кино, которое нас объединяет</div><div class="footnote">Учебный проект о советском кинематографе. Изображения подгружаются из интернета; если картинка недоступна, карточка покажет стилизованную заглушку.</div></div>
+    <a class="backtop" href="#top">Вернуться наверх ↑</a>
+  </div>
+</footer>
+
+<div class="modal" id="movieModal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeModal()">
+  <div class="modal-panel"><button class="close" onclick="closeModal()" aria-label="Закрыть">×</button><div id="modalContent"></div></div>
 </div>
 
-<div class="hint">Клик по полю — посадить цветок · Клик по овечке — она подпрыгнет 🐑</div>
-
 <script>
-(() => {
-  "use strict";
+const movies=[
+{id:1,title:'Ирония судьбы, или С лёгким паром!',year:1975,director:'Эльдар Рязанов',genre:'Комедия',symbol:'❄',color:'#52685f',image:'https://runews24.ru/assets/images/uploads/2025/12/16/fd988d59654921ee52a264550b238066.jpeg',short:'Новогодняя случайность меняет привычный порядок вещей.',plot:'После традиционного похода в баню Женя Лукашин по ошибке оказывается в Ленинграде — в квартире с тем же адресом, что и его московская. Неловкая встреча постепенно превращается в историю о случайности, одиночестве и любви.',values:'Открытость переменам, умение увидеть в незнакомце близкого человека и надежда на неожиданное счастье.',why:'Фильм стал новогодней традицией для многих семей. За комедией стоит разговор о привычках, личном выборе и о том, как случайный вечер может изменить жизнь.',featured:true},
+{id:2,title:'Москва слезам не верит',year:1979,director:'Владимир Меньшов',genre:'Драма',symbol:'✦',color:'#725345',image:'https://static.kinoafisha.info/k/articles/610/upload/editor/image-20250920151205-1.jpg',short:'Три подруги, большой город и путь к самостоятельности.',plot:'Три молодые женщины приезжают в Москву и строят совершенно разные планы на будущее. Спустя годы жизнь проверяет их решения, мечты и отношения.',values:'Самостоятельность, труд, дружба и право начинать заново независимо от возраста и обстоятельств.',why:'Это не сказка об идеальной судьбе, а история взросления и выбора. Она позволяет обсудить самостоятельность и цену успеха.',featured:true},
+{id:3,title:'Бриллиантовая рука',year:1968,director:'Леонид Гайдай',genre:'Комедия',symbol:'◇',color:'#485c66',image:'https://static.kinoafisha.info/upload/articles/236154633212.jpg',short:'Обычный человек случайно становится участником невероятной авантюры.',plot:'Скромный Семён Семёнович Горбунков отправляется в круиз и по случайности оказывается втянут в историю с контрабандистами. Его честность сталкивается с чередой абсурдных происшествий.',values:'Честность, ответственность и мысль о том, что порядочность не обязательно должна быть скучной.',why:'Фильм полон цитат и комических ситуаций, а за юмором высмеивает жадность, обман и человеческую нелепость.',featured:true},
+{id:4,title:'Офицеры',year:1971,director:'Владимир Роговой',genre:'Драма',symbol:'✶',color:'#4d554f',image:'https://m.media-amazon.com/images/M/MV5BOGU4YTllNDMtYzY1OS00NWNlLTg3NzYtOWU1NjhjODA5ODU3XkEyXkFqcGc%40._V1_.jpg',short:'История поколений, верности и служения.',plot:'На протяжении десятилетий фильм следит за судьбами военных друзей и их семей, показывая, как меняются времена, но остаются важными честь, дружба и ответственность.',values:'Верность слову, товарищество, мужество и преемственность поколений.',why:'Картина показывает героизм не только как подвиг, но и как ежедневную готовность отвечать за близких и свои решения.',featured:true},
+{id:5,title:'Операция «Ы» и другие приключения Шурика',year:1965,director:'Леонид Гайдай',genre:'Комедия',symbol:'☻',color:'#6a6653',image:'https://static.kinoafisha.info/k/movie_shots/1920x1080/upload/movie_shots/1/8/3/5435381/e20deb57c7c49ed81c0009c5aae66686.jpg',short:'Три комедийные истории о находчивом студенте.',plot:'Студент Шурик попадает в череду смешных ситуаций: от подготовки к экзамену до противостояния незадачливым хулиганам.',values:'Любознательность, находчивость, трудолюбие и уверенность, что ум и спокойствие сильнее грубой силы.',why:'Лёгкий фильм для знакомства с советским юмором и студенческой культурой шестидесятых.'},
+{id:6,title:'Добро пожаловать, или Посторонним вход воспрещён',year:1964,director:'Элем Климов',genre:'Комедия',symbol:'☀',color:'#718064',short:'Летний лагерь, строгие правила и детская изобретательность.',plot:'После нарушения правил пионер Костя Иночкин должен тайно оставаться в лагере, чтобы не расстроить бабушку. Его друзья придумывают план, а бюрократические порядки становятся предметом сатиры.',values:'Дружба, свобода, самостоятельное мышление и добрый скепсис к чрезмерным запретам.',why:'За лёгкой комедией скрывается сатира на формализм и стремление всё контролировать.'},
+{id:7,title:'Кавказская пленница',year:1967,director:'Леонид Гайдай',genre:'Комедия',symbol:'☼',color:'#a36a49',short:'Фольклор, приключения и хитроумные планы.',plot:'Шурик приезжает собирать местный фольклор и оказывается втянут в авантюру вокруг похищения Нины. На помощь приходят юмор и верные друзья.',values:'Смелость, дружба, уважение к свободе другого человека.',why:'Динамичная комедия с музыкой, приключениями и яркими персонажами.'},
+{id:8,title:'Служебный роман',year:1977,director:'Эльдар Рязанов',genre:'Комедия',symbol:'❀',color:'#82706c',image:'https://m.media-amazon.com/images/M/MV5BNDcyZTdiOGMtOTkxOS00MGEyLWIxZWQtMzg2NjIwMDEyMWM1XkEyXkFqcGc%40._V1_.jpg',short:'Офисная жизнь, неловкость чувств и возможность измениться.',plot:'В статистическом учреждении робкий Новосельцев и строгая руководительница Калугина постепенно узнают друг друга за пределами рабочих ролей.',values:'Эмпатия, уважение, отказ судить по внешности и должности, смелость быть уязвимым.',why:'Фильм позволяет обсудить рабочие отношения, стереотипы и то, как внимательное отношение меняет людей.'},
+{id:9,title:'А зори здесь тихие',year:1972,director:'Станислав Ростоцкий',genre:'Драма',symbol:'✧',color:'#485b55',image:'https://static.kinoafisha.info/k/articles/1200/upload/articles/890098246963.jpg',short:'Трагическая история девушек-зенитчиц во время войны.',plot:'Старшина Васков и группа молодых зенитчиц вступают в неравный бой с немецкими диверсантами. У каждой героини есть собственная жизнь, мечты и характер.',values:'Мужество, товарищество, память о войне и ценность каждой человеческой жизни.',why:'Сильная антивоенная история, помогающая говорить о цене подвига и о людях за страницами учебников.'},
+{id:10,title:'Солярис',year:1972,director:'Андрей Тарковский',genre:'Фантастика',symbol:'◉',color:'#4b6268',image:'https://www.sciencefictionclassics.com/content/images/2025/10/102725-Solaris-Kevin.jpg',short:'Космическая экспедиция превращается в путешествие внутрь человека.',plot:'Психолог Крис Кельвин прибывает на орбитальную станцию планеты Солярис, где сталкивается с необъяснимыми явлениями и воплощениями собственных воспоминаний.',values:'Совесть, ответственность, любовь и границы познания.',why:'Фантастика здесь нужна не ради эффектов, а ради философских вопросов о человеческой природе.'},
+{id:11,title:'Приключения Электроника',year:1979,director:'Константин Бромберг',genre:'Приключения',symbol:'⌁',color:'#527f8a',image:'https://static.kinoafisha.info/k/articles/1200/upload/articles/265486620768.jpg',short:'Робот, похожий на школьника, разбирается в человеческом мире.',plot:'Мальчик Серёжа Сыроежкин знакомится с роботом Электроником, который выглядит точь-в-точь как он. Их обмен ролями приводит к приключениям и важным открытиям.',values:'Дружба, индивидуальность, ответственность и мысль о том, что способности не заменяют человечность.',why:'История соединяет фантастику, школьную жизнь и музыку и задаёт вопрос: можно ли научиться быть человеком?'},
+{id:12,title:'Белое солнце пустыни',year:1970,director:'Владимир Мотыль',genre:'Приключения',symbol:'☀',color:'#ad7041',short:'Возвращение домой откладывается ради чужой безопасности.',plot:'Красноармеец Фёдор Сухов направляется домой, но оказывается втянут в опасные события в пустыне и берёт на себя заботу о женщинах из гарема Абдуллы.',values:'Чувство долга, защита уязвимых, верность принципам и личная ответственность.',why:'Приключенческая история с необычной атмосферой и героем, который действует по совести.'},
+{id:13,title:'Человек-амфибия',year:1961,director:'Владимир Чеботарёв, Геннадий Казанский',genre:'Приключения',symbol:'≈',color:'#36717a',short:'Романтическая история о свободе, отличии и принятии.',plot:'Ихтиандр способен жить под водой благодаря операции, проведённой талантливым доктором. Его необычность становится и даром, и причиной чужих страхов.',values:'Свобода, сострадание и уважение к тем, кто отличается от большинства.',why:'Фантастическая история, которая позволяет поговорить о предрассудках и цене научного открытия.'},
+{id:14,title:'Гостья из будущего',year:1984,director:'Павел Арсенов',genre:'Фантастика',symbol:'⌬',color:'#5a6b89',short:'Школьник из Москвы случайно открывает дверь в будущее.',plot:'Коля Герасимов попадает в будущее и становится участником погони за миелофоном — прибором, способным читать мысли. На помощь приходят юные герои из разных эпох.',values:'Честность, смелость, дружба и вера в то, что будущее зависит от поступков людей.',why:'Культовая история, наполненная воображением и оптимизмом.'},
+{id:15,title:'Карнавальная ночь',year:1956,director:'Эльдар Рязанов',genre:'Комедия',symbol:'✺',color:'#8f3430',short:'Молодые сотрудники готовят праздник вопреки скучным инструкциям.',plot:'Команда клуба хочет устроить весёлый новогодний вечер, но сталкивается с начальником, который предпочитает официальные речи живому празднику.',values:'Творчество, инициативность, командная работа и радость, которую не заменишь формальностями.',why:'Музыкальная комедия о столкновении живого желания праздника с бюрократией.'}
+];
 
-  const canvas = document.getElementById('scene');
-  const ctx = canvas.getContext('2d');
+let activeFilter='Все',saved=new Set(),showingSaved=false;
+const $=s=>document.querySelector(s);
 
-  let W = 0, H = 0, groundY = 0;
-  let skyGrad, fieldGrad;
-  let clouds = [];
-  let tufts = [];
-  const sheep = [];
-  const flowers = [];
+function esc(s){
+  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 
-  const MAX_FLOWERS = 220;
-  const MAX_SHEEP = 30;
+function imageHTML(m){
+  return m.image
+    ? `<img src="${m.image}" alt="Кадр из фильма «${esc(m.title)}»" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">`
+    : '';
+}
 
-  /* ---------- Утилиты ---------- */
-  const rand = (a, b) => a + Math.random() * (b - a);
-  const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+function featureHTML(m){
+  return `<article class="feature" tabindex="0" role="button"
+    onclick="openMovie(${m.id})"
+    onkeydown="if(event.key==='Enter')openMovie(${m.id})"
+    style="--poster:${m.color}">
+    <span class="number">0${m.id}</span>
+    ${imageHTML(m)}
+    <div class="fallback" style="display:${m.image?'none':'grid'}">${m.symbol}</div>
+    <div class="label">
+      <small>${esc(m.genre)} / ${m.year}</small>
+      <h3>${esc(m.title)}</h3>
+      <p>${esc(m.short)}</p>
+    </div>
+  </article>`;
+}
 
-  /* ---------- Размер и градиенты ---------- */
-  function resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = window.innerWidth;
-    H = window.innerHeight;
+function movieHTML(m){
+  return `<article class="movie" tabindex="0" role="button"
+    onclick="openMovie(${m.id})"
+    onkeydown="if(event.key==='Enter')openMovie(${m.id})">
+    <div class="movie-pic" style="--poster:${m.color}">
+      <span class="year">${m.year}</span>
+      ${imageHTML(m)}
+      <div class="fallback" style="display:${m.image?'none':'grid'}">${m.symbol}</div>
+    </div>
+    <div class="movie-info">
+      <div class="genre">${esc(m.genre)} / ${m.year}</div>
+      <h3>${esc(m.title)}</h3>
+      <p>${esc(m.short)}</p>
+      <div class="card-bottom"><span>Открыть обзор</span><b>↗</b></div>
+    </div>
+  </article>`;
+}
 
-    canvas.width = Math.round(W * dpr);
-    canvas.height = Math.round(H * dpr);
-    canvas.style.width = W + 'px';
-    canvas.style.height = H + 'px';
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+function renderFeatures(){
+  $('#featureGrid').innerHTML=movies.filter(m=>m.featured).map(featureHTML).join('');
+}
 
-    groundY = H * 0.40;
+function renderCatalog(){
+  const q=$('#searchInput').value.trim().toLowerCase();
+  const list=movies.filter(m=>
+    (activeFilter==='Все'||m.genre===activeFilter)&&
+    (!q||(m.title+' '+m.genre+' '+m.director+' '+m.short+' '+m.values).toLowerCase().includes(q))&&
+    (!showingSaved||saved.has(m.id))
+  );
 
-    skyGrad = ctx.createLinearGradient(0, 0, 0, groundY + 40);
-    skyGrad.addColorStop(0, '#79cdfb');
-    skyGrad.addColorStop(0.55, '#b9e7ff');
-    skyGrad.addColorStop(1, '#eaf9e4');
+  $('#catalogGrid').innerHTML=list.length
+    ? list.map(movieHTML).join('')
+    : '<div class="empty">Ничего не найдено. Попробуйте другое название или фильтр.</div>';
 
-    fieldGrad = ctx.createLinearGradient(0, groundY, 0, H);
-    fieldGrad.addColorStop(0, '#9ad474');
-    fieldGrad.addColorStop(0.35, '#7cc457');
-    fieldGrad.addColorStop(1, '#4f9b3a');
+  document.querySelectorAll('.filter').forEach(b=>
+    b.classList.toggle('active',b.dataset.filter===activeFilter)
+  );
 
-    makeClouds();
-    makeTufts();
+  $('#savedToggle').innerHTML=(showingSaved?'← Весь каталог':'♡ Избранное')
+    +' <span id="savedCount">'+saved.size+'</span>';
+}
+
+function openMovie(id){
+  const m=movies.find(x=>x.id===id);
+  if(!m)return;
+
+  $('#modalContent').innerHTML=`
+    <div class="modal-top">
+      <div class="modal-img" style="background:${m.color}">
+        ${m.image?`<img src="${m.image}" alt="Кадр из фильма «${esc(m.title)}»" onerror="this.style.display='none'">`:''}
+      </div>
+      <div class="modal-text">
+        <div class="kicker">${esc(m.genre)} / ${m.year}</div>
+        <h2>${esc(m.title)}</h2>
+        <div class="meta">РЕЖИССЁР: ${esc(m.director)}<br>СТРАНА: СССР</div>
+        <p style="font:13px/1.8 'Courier New',monospace">${esc(m.short)}</p>
+        <button class="save ${saved.has(m.id)?'saved':''}" onclick="toggleSave(${m.id})">
+          ${saved.has(m.id)?'♥ В избранном':'♡ Хочу посмотреть'}
+        </button>
+      </div>
+    </div>
+    <div class="modal-copy">
+      <div><h3>О чём фильм</h3><p>${esc(m.plot)}</p></div>
+      <div><h3>Какие ценности раскрывает</h3><p>${esc(m.values)}</p></div>
+      <div class="full"><h3>Почему стоит посмотреть сегодня</h3><p>${esc(m.why)}</p></div>
+    </div>`;
+
+  $('#movieModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  $('#movieModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function toggleSave(id){
+  saved.has(id)?saved.delete(id):saved.add(id);
+  renderCatalog();
+  openMovie(id);
+}
+
+function toggleSavedView(){
+  showingSaved=!showingSaved;
+  if(showingSaved){
+    activeFilter='Все';
+    $('#searchInput').value='';
   }
+  renderCatalog();
+  $('#catalog').scrollIntoView({behavior:'smooth'});
+}
 
-  function makeClouds() {
-    clouds = [];
-    const n = W < 600 ? 3 : 5;
-    for (let i = 0; i < n; i++) {
-      clouds.push({
-        x: Math.random() * W,
-        y: H * 0.04 + Math.random() * H * 0.20,
-        s: rand(0.55, 1.15) * (W < 600 ? 0.75 : 1),
-        v: rand(5, 14)
-      });
-    }
-  }
+$('#searchInput').addEventListener('input',renderCatalog);
 
-  function makeTufts() {
-    tufts = [];
-    const n = Math.round((W * (H - groundY)) / 9000);
-    for (let i = 0; i < n; i++) {
-      const y = rand(groundY + 8, H);
-      tufts.push({
-        x: Math.random() * W,
-        y,
-        h: rand(6, 16),
-        s: scaleAt(y) * 0.9,
-        hue: rand(88, 112),
-        phase: Math.random() * Math.PI * 2
-      });
-    }
-    tufts.sort((a, b) => a.y - b.y);
-  }
+document.querySelectorAll('.filter').forEach(b=>
+  b.addEventListener('click',()=>{
+    activeFilter=b.dataset.filter;
+    showingSaved=false;
+    renderCatalog();
+  })
+);
 
-  // Чем ниже на экране — тем крупнее
-  function scaleAt(y) {
-    const t = clamp((y - groundY) / (H - groundY), 0, 1);
-    return 0.45 + 0.85 * t;
-  }
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeModal();
+});
 
-  /* ---------- Овечка ---------- */
-  class Sheep {
-    constructor(x, y) {
-      const minY = groundY + 45;
-      const maxY = Math.max(minY + 20, H - 35);
-      this.x = (x !== undefined) ? x : Math.random() * W;
-      this.y = (y !== undefined) ? y : rand(minY, maxY);
-      this.dir = Math.random() < 0.5 ? -1 : 1;
-      this.speed = rand(18, 42);
-      this.walkT = Math.random() * 10;
-      this.idlePhase = Math.random() * 10;
-      this.state = 'walk';
-      this.stateTime = rand(1.2, 4);
-      this.bounce = 0;
-    }
-
-    get s() { return scaleAt(this.y); }
-
-    jump() {
-      if (this.bounce <= 0.02) this.bounce = 1;
-    }
-
-    update(dt) {
-      this.stateTime -= dt;
-      if (this.stateTime <= 0) {
-        if (this.state === 'walk') {
-          this.state = 'idle';
-          this.stateTime = rand(0.9, 2.8);
-        } else {
-          this.state = 'walk';
-          this.stateTime = rand(1.6, 4.5);
-          this.dir = Math.random() < 0.5 ? -1 : 1;
-        }
-      }
-
-      if (this.state === 'walk') {
-        this.x += this.dir * this.speed * dt;
-        this.walkT += dt;
-        const pad = 45;
-        if (this.x < pad) { this.x = pad; this.dir = 1; }
-        if (this.x > W - pad) { this.x = W - pad; this.dir = -1; }
-      } else {
-        this.idlePhase += dt;
-      }
-
-      this.y = clamp(this.y, groundY + 40, H - 30);
-
-      if (this.bounce > 0) this.bounce = Math.max(0, this.bounce - dt * 1.5);
-    }
-
-    draw(t) {
-      const s = this.s;
-      const hopping = this.bounce > 0.02;
-      const hop = hopping ? Math.sin(this.bounce * Math.PI) * 46 * s : 0;
-      const bob = this.state === 'walk' ? Math.sin(this.walkT * 9) * 1.6 * s : 0;
-      const x = this.x;
-      const y = this.y - hop + bob;
-
-      // Тень
-      ctx.fillStyle = 'rgba(30, 70, 30, 0.16)';
-      ctx.beginPath();
-      ctx.ellipse(this.x, this.y + 2, 30 * s * (1 - hop / 90), 8 * s, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.scale(s * this.dir, s);
-
-      // Ножки
-      const swing = this.state === 'walk' ? Math.sin(this.walkT * 9) * 3.5 : 0;
-      ctx.strokeStyle = '#4b3f38';
-      ctx.lineWidth = 5;
-      ctx.lineCap = 'round';
-      const legs = [[-15, swing], [-5, -swing], [8, -swing], [17, swing]];
-      for (const [lx, sw] of legs) {
-        ctx.beginPath();
-        ctx.moveTo(lx, -14);
-        ctx.lineTo(lx + sw, -1);
-        ctx.stroke();
-      }
-
-      // Пушистое тело
-      const fluff = [
-        [-18, -30, 13], [-5, -37, 15], [10, -33, 13],
-        [-21, -19, 13], [17, -19, 12], [0, -19, 16],
-        [-9, -26, 15], [9, -25, 14], [-1, -33, 13]
-      ];
-      ctx.fillStyle = '#fdfdf8';
-      ctx.strokeStyle = '#e0ddd0';
-      ctx.lineWidth = 1.6;
-      for (const [cx, cy, r] of fluff) {
-        ctx.beginPath();
-        ctx.arc(cx, cy, r, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-      }
-
-      // Голова
-      ctx.save();
-      ctx.translate(23, -31);
-      ctx.rotate(-0.16);
-
-      // Ухо
-      ctx.fillStyle = '#3f3a3e';
-      ctx.beginPath();
-      ctx.ellipse(-8, -7, 7.5, 4.5, -0.55, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Морда
-      ctx.fillStyle = '#4a4448';
-      ctx.beginPath();
-      ctx.ellipse(0, 0, 11.5, 13, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Глаз
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.arc(4, -3.5, 3, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#101014';
-      ctx.beginPath();
-      ctx.arc(4.9, -3.5, 1.6, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Носик
-      ctx.fillStyle = '#d98aa0';
-      ctx.beginPath();
-      ctx.ellipse(6, 6, 3, 2.2, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.restore();
-      ctx.restore();
-
-      // Восклицание при прыжке
-      if (hopping) {
-        const alpha = clamp(this.bounce * 2.2, 0, 1);
-        const fs = Math.round(15 * s);
-        ctx.save();
-        ctx.globalAlpha = alpha;
-        ctx.font = `bold ${fs}px system-ui, -apple-system, sans-serif`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.lineWidth = 5 * s;
-        ctx.strokeStyle = 'rgba(255,255,255,0.95)';
-        ctx.strokeText('Бе-е-е!', this.x, y - 62 * s - hop * 0.25);
-        ctx.fillStyle = '#2f4a2a';
-        ctx.fillText('Бе-е-е!', this.x, y - 62 * s - hop * 0.25);
-        ctx.restore();
-      }
-    }
-  }
-
-  /* ---------- Цветочек ---------- */
-  class Flower {
-    constructor(x, y) {
-      this.x = x;
-      this.y = clamp(y, groundY + 12, H - 6);
-      this.hue = [330, 48, 285, 355, 210, 25, 315][Math.floor(Math.random() * 7)];
-      this.petals = 5 + Math.floor(Math.random() * 3);
-      this.phase = Math.random() * Math.PI * 2;
-      this.h = rand(18, 36);
-      this.lean = rand(-0.25, 0.25);
-    }
-
-    get s() { return scaleAt(this.y); }
-
-    draw(t) {
-      const s = this.s;
-      const sway = Math.sin(t * 1.3 + this.phase) * 3.4 * s + this.lean * 10 * s;
-      const bx = this.x, by = this.y;
-      const tx = bx + sway;
-      const ty = by - this.h * s;
-
-      // Тень
-      ctx.fillStyle = 'rgba(30, 70, 30, 0.13)';
-      ctx.beginPath();
-      ctx.ellipse(bx, by + 1, 8 * s, 2.6 * s, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Стебель
-      ctx.strokeStyle = '#3f9142';
-      ctx.lineWidth = 2.4 * s;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(bx, by);
-      ctx.quadraticCurveTo(bx + sway * 0.3, by - this.h * s * 0.55, tx, ty);
-      ctx.stroke();
-
-      // Листик
-      ctx.fillStyle = '#4aa54c';
-      const side = this.phase > Math.PI ? 1 : -1;
-      ctx.beginPath();
-      ctx.ellipse(bx + side * 6 * s, by - this.h * s * 0.42, 7 * s, 3.2 * s, side * 0.6, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Лепестки
-      const wob = Math.sin(t * 0.9 + this.phase) * 0.09;
-      for (let i = 0; i < this.petals; i++) {
-        const a = (i / this.petals) * Math.PI * 2 + wob;
-        const px = tx + Math.cos(a) * 5.2 * s;
-        const py = ty + Math.sin(a) * 5.2 * s;
-        ctx.fillStyle = `hsl(${this.hue} 88% 79%)`;
-        ctx.strokeStyle = `hsl(${this.hue} 68% 63%)`;
-        ctx.lineWidth = 0.9 * s;
-        ctx.beginPath();
-        ctx.ellipse(px, py, 5.2 * s, 3.6 * s, a, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-      }
-
-      // Серединка
-      ctx.fillStyle = `hsl(${(this.hue + 45) % 360} 92% 60%)`;
-      ctx.beginPath();
-      ctx.arc(tx, ty, 3.3 * s, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = `hsl(${(this.hue + 45) % 360} 92% 78%)`;
-      ctx.beginPath();
-      ctx.arc(tx - 1 * s, ty - 1 * s, 1.3 * s, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  /* ---------- Фон ---------- */
-  function drawSun(t) {
-    const sx = W * 0.83;
-    const sy = H * 0.13;
-    const r = Math.min(W, H) * 0.055;
-
-    ctx.save();
-    ctx.translate(sx, sy);
-    ctx.rotate(t * 0.12);
-    ctx.strokeStyle = 'rgba(255, 214, 90, 0.55)';
-    ctx.lineWidth = 5;
-    ctx.lineCap = 'round';
-    for (let i = 0; i < 12; i++) {
-      const a = (i / 12) * Math.PI * 2;
-      ctx.beginPath();
-      ctx.moveTo(Math.cos(a) * (r + 13), Math.sin(a) * (r + 13));
-      ctx.lineTo(Math.cos(a) * (r + 29), Math.sin(a) * (r + 29));
-      ctx.stroke();
-    }
-    ctx.restore();
-
-    const g = ctx.createRadialGradient(sx, sy, r * 0.2, sx, sy, r * 2.1);
-    g.addColorStop(0, 'rgba(255, 245, 190, 0.95)');
-    g.addColorStop(0.45, 'rgba(255, 216, 90, 0.55)');
-    g.addColorStop(1, 'rgba(255, 216, 90, 0)');
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(sx, sy, r * 2.1, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = '#ffd93b';
-    ctx.beginPath();
-    ctx.arc(sx, sy, r, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  function drawCloud(c) {
-    ctx.save();
-    ctx.translate(c.x, c.y);
-    ctx.scale(c.s, c.s);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.92)';
-    const puffs = [
-      [-42, 2, 24], [-14, -12, 31], [22, -6, 25],
-      [52, 6, 17], [6, 12, 22], [-24, 12, 19]
-    ];
-    ctx.beginPath();
-    for (const [x, y, r] of puffs) {
-      ctx.moveTo(x + r, y);
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-    }
-    ctx.fill();
-    ctx.restore();
-  }
-
-  function drawHills() {
-    ctx.fillStyle = '#a9dc8b';
-    ctx.beginPath();
-    ctx.moveTo(0, groundY + 6);
-    ctx.quadraticCurveTo(W * 0.22, groundY - 80, W * 0.46, groundY + 2);
-    ctx.quadraticCurveTo(W * 0.72, groundY - 62, W, groundY + 8);
-    ctx.lineTo(W, groundY + 60);
-    ctx.lineTo(0, groundY + 60);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.fillStyle = '#8ec96e';
-    ctx.beginPath();
-    ctx.moveTo(0, groundY + 22);
-    ctx.quadraticCurveTo(W * 0.33, groundY - 46, W * 0.66, groundY + 16);
-    ctx.quadraticCurveTo(W * 0.86, groundY + 34, W, groundY + 12);
-    ctx.lineTo(W, groundY + 70);
-    ctx.lineTo(0, groundY + 70);
-    ctx.closePath();
-    ctx.fill();
-  }
-
-  function drawTufts(t) {
-    ctx.lineCap = 'round';
-    for (const g of tufts) {
-      const sway = Math.sin(t * 1.6 + g.phase) * 1.8 * g.s;
-      ctx.strokeStyle = `hsl(${g.hue} 48% 42% / 0.55)`;
-      ctx.lineWidth = 2 * g.s;
-      ctx.beginPath();
-      ctx.moveTo(g.x, g.y);
-      ctx.quadraticCurveTo(g.x + sway * 0.5, g.y - g.h * g.s * 0.6, g.x + sway, g.y - g.h * g.s);
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.moveTo(g.x + 3 * g.s, g.y);
-      ctx.quadraticCurveTo(g.x + 3 * g.s + sway * 0.4, g.y - g.h * g.s * 0.4, g.x + 3 * g.s + sway * 0.8, g.y - g.h * g.s * 0.7);
-      ctx.stroke();
-    }
-  }
-
-  /* ---------- Цикл ---------- */
-  function update(dt, t) {
-    for (const c of clouds) {
-      c.x += c.v * dt;
-      if (c.x > W + 140) { c.x = -140; c.y = H * 0.04 + Math.random() * H * 0.20; }
-    }
-    for (const s of sheep) s.update(dt);
-  }
-
-  function render(t) {
-    ctx.fillStyle = skyGrad;
-    ctx.fillRect(0, 0, W, groundY + 2);
-
-    drawSun(t);
-    for (const c of clouds) drawCloud(c);
-
-    drawHills();
-
-    ctx.fillStyle = fieldGrad;
-    ctx.fillRect(0, groundY, W, H - groundY);
-
-    drawTufts(t);
-
-    const items = sheep.concat(flowers);
-    items.sort((a, b) => a.y - b.y);
-    for (const it of items) it.draw(t);
-  }
-
-  let last = performance.now();
-  function loop(now) {
-    const dt = Math.min((now - last) / 1000, 0.05);
-    last = now;
-    const t = now / 1000;
-    update(dt, t);
-    render(t);
-    requestAnimationFrame(loop);
-  }
-
-  /* ---------- Взаимодействие ---------- */
-  function hitSheep(mx, my) {
-    const sorted = sheep.slice().sort((a, b) => b.y - a.y);
-    for (const s of sorted) {
-      const sc = s.s;
-      const cx = s.x;
-      const cy = s.y - 30 * sc;
-      const dx = (mx - cx) / (36 * sc);
-      const dy = (my - cy) / (34 * sc);
-      if (dx * dx + dy * dy < 1) return s;
-    }
-    return null;
-  }
-
-  function updateCounts() {
-    document.getElementById('sheepCount').textContent = sheep.length;
-    document.getElementById('flowerCount').textContent = flowers.length;
-  }
-
-  function addSheepAt(x, y) {
-    if (sheep.length >= MAX_SHEEP) return;
-    sheep.push(new Sheep(x, y));
-    updateCounts();
-  }
-
-  function addFlowerAt(x, y) {
-    if (flowers.length >= MAX_FLOWERS) return;
-    flowers.push(new Flower(x, y));
-    updateCounts();
-  }
-
-  canvas.addEventListener('pointerdown', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
-
-    const hit = hitSheep(mx, my);
-    if (hit) {
-      hit.jump();
-      return;
-    }
-
-    if (my > groundY + 10) {
-      addFlowerAt(mx, my);
-      for (let i = 0; i < 4; i++) {
-        if (Math.random() < 0.5) {
-          addFlowerAt(mx + rand(-30, 30), my + rand(-6, 26));
-        }
-      }
-    }
-  });
-
-  document.getElementById('addSheep').addEventListener('click', () => {
-    addSheepAt(
-      rand(80, Math.max(90, W - 80)),
-      rand(groundY + 60, Math.max(groundY + 80, H - 50))
-    );
-  });
-
-  document.getElementById('addFlower').addEventListener('click', () => {
-    addFlowerAt(
-      rand(40, Math.max(50, W - 40)),
-      rand(groundY + 20, Math.max(groundY + 40, H - 20))
-    );
-  });
-
-  window.addEventListener('resize', resize);
-  window.addEventListener('orientationchange', () => setTimeout(resize, 200));
-
-  /* ---------- Старт ---------- */
-  function init() {
-    resize();
-
-    const sheepCount = W < 600 ? 4 : 6;
-    for (let i = 0; i < sheepCount; i++) {
-      addSheepAt(rand(80, W - 80), rand(groundY + 60, Math.max(groundY + 90, H - 50)));
-    }
-
-    const flowerCount = W < 600 ? 16 : 30;
-    for (let i = 0; i < flowerCount; i++) {
-      addFlowerAt(rand(15, W - 15), rand(groundY + 12, H - 8));
-    }
-
-    updateCounts();
-    requestAnimationFrame(loop);
-  }
-
-  init();
-})();
+renderFeatures();
+renderCatalog();
 </script>
 </body>
 </html>
